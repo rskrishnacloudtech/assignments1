@@ -1,19 +1,20 @@
-#!/bin/bash 
+#!/bin/bash
 
-# Getting the top 5 CPU usage.
-cpuusage=$(ps aux | sort -nrk 3,3 | head -n 5 | awk -F " " '{print $4f}') 
+# Set the CPU usage threshold
+THRESHOLD=80
 
-# Getting the process name from the result.
-processname=$(ps aux | sort -nrk 3,3 | head -n 5 | awk -F " " '{print $1f}') 
-threshold=10 
+# Get the top 5 CPU consuming processes
+TOP_PROCESSES=$(ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 6)
 
-# Reading all the records line by line and and cheking the usage is greater than threshold limit set and priting the process name which is more.
-while IFS= read -r line 
-do 
-    # usage=$(echo $line | awk -F " " '{print $4f}')
-    # processname=$($line | awk -F " " '{print $1f}')
-    if [ $cpuusage -gt $threshold ]
-    then
-        echo "$processname is consuming more CPU memory than $threshold. Current uage is $cpuusage" 
-    fi
-done <<< $cpuusage
+# Display the top 5 CPU consuming processes
+echo "Top 5 CPU consuming processes:"
+echo "$TOP_PROCESSES"
+
+# Check if any process exceeds the CPU usage threshold
+ALERT=$(echo "$TOP_PROCESSES" | awk -v threshold=$THRESHOLD 'NR>1 && $5+0 > threshold {print}')
+
+if [ -n "$ALERT" ]; then
+    echo "ALERT: Some processes are consuming more than $THRESHOLD% CPU:"
+    echo "$ALERT"
+    # You can add additional actions here, like sending an email or notification
+fi
