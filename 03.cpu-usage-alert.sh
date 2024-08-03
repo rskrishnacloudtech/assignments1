@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the CPU usage threshold
-THRESHOLD=80
+THRESHOLD=5
 
 # Get the top 5 CPU consuming processes
 TOP_PROCESSES=$(ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 6)
