@@ -4,7 +4,7 @@
 cpuusage=$(ps aux | sort -nrk 3,3 | head -n 5 | awk -F " " '{print $4f}') 
 
 # Getting the process name from the result.
-processname=$(ps aux | sort -nrk 3,3 | head -n 5 | awk -F " " '{print $1f}' | awk -F " " '{print $1f}') 
+processname=$(ps aux | sort -nrk 3,3 | head -n 5 | awk -F " " '{print $1f}') 
 threshold=10 
 
 # Reading all the records line by line and and cheking the usage is greater than threshold limit set and priting the process name which is more.
