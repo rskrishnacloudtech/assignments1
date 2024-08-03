@@ -12,8 +12,8 @@ while IFS= read -r line
 do 
     # usage=$(echo $line | awk -F " " '{print $4f}')
     # processname=$($line | awk -F " " '{print $1f}')
-    if [ $cpuusage > $threshold ]
+    if [ $cpuusage -gt $threshold ]
     then
         echo "$processname is consuming more CPU memory than $threshold. Current uage is $cpuusage" 
     fi
-done <<< $cpuusage 
+done <<< $cpuusage
