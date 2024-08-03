@@ -9,7 +9,7 @@ fi
 input_file=$1
 output_file=$2
 
-# Transpose the input file using awk
+# Transpose the input file using awk. NF - Number of fields (columns). NR - Number of rows.
 awk '
 {
   for (i=1; i<=NF; i++)  {
