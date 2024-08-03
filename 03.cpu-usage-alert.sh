@@ -14,6 +14,6 @@ do
     # processname=$($line | awk -F " " '{print $1f}')
     if [ $cpuusage > $threshold ]
     then
-        echo "$processname is consuming more CPU memory than $threshold. Current uage is $usage" 
+        echo "$processname is consuming more CPU memory than $threshold. Current uage is $cpuusage" 
     fi
 done <<< $cpuusage 
